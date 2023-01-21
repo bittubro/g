@@ -98,7 +98,28 @@
   <script  src="./script.js"></script>
 
 
+<button onclick="sendNotification()">Send Notification</button>
 
-
+<script>
+  function sendNotification() {
+    if (!("Notification" in window)) {
+      alert("This browser does not support desktop notification");
+    }
+    else if (Notification.permission === "granted") {
+      var notification = new Notification("Title", {
+        body: "This is the body text of the notification.",
+      });
+    }
+    else if (Notification.permission !== "denied") {
+      Notification.requestPermission().then(function (permission) {
+        if (permission === "granted") {
+          var notification = new Notification("Title", {
+            body: "This is the body text of the notification.",
+          });
+        }
+      });
+    }
+  }
+</script>
 </body>
 </html>
