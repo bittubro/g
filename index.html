@@ -121,5 +121,75 @@
     }
   }
 </script>
+<button id="subscribe">Subscribe to Push Notifications</button>
+<script>
+  // Register the service worker
+  navigator.serviceWorker.register('/sw.js')
+    .then(function(registration) {
+      // Get the current subscription
+      return registration.pushManager.getSubscription()
+        .then(function(subscription) {
+          if (subscription) {
+            // User is already subscribed
+            return subscription;
+          }
+          // User is not subscribed, ask for permission
+          return registration.pushManager.subscribe({
+            userVisibleOnly: true
+          });
+        });
+    })
+    .then(function(subscription) {
+      // Send the subscription object to your server
+      sendSubscriptionToServer(subscription);
+    });
+
+  // Send a push notification
+  function sendPushNotification(subscription) {
+    // Prepare the notification
+    const notification = {
+      title: 'My website',
+      body: 'This is a test push notification',
+      icon: '/icon.png'
+    };
+    // Send the notification
+    fetch('https://fcm.googleapis.com/fcm/send', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer <Your FCM Server Key>'
+      },
+      body: JSON.stringify({
+        notification: notification,
+        to: subscription.endpoint
+      })
+    });
+  }
+  
+  // Subscribe button click event
+  document.getElementById('subscribe').addEventListener('click', function() {
+    // Register the service worker
+    navigator.serviceWorker.register('/sw.js')
+      .then(function(registration) {
+        // Get the current subscription
+        return registration.pushManager.getSubscription()
+          .then(function(subscription) {
+            if (subscription) {
+              // User is already subscribed
+              return subscription;
+            }
+            // User is not subscribed, ask for permission
+            return registration.pushManager.subscribe({
+              userVisibleOnly: true
+            });
+          });
+      })
+      .then(function(subscription) {
+        // Send the subscription object to your server
+        sendSubscriptionToServer(subscription);
+      });
+  });
+</script>
+
 </body>
 </html>
