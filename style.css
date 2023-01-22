@@ -3,6 +3,7 @@
   color: #84FF00;
   right: 0;top: 70vmax;
   font-size: 11vmax;position: fixed;
+ text-shadow: 0px 0px 4px #000000;transition: all 1.3s ease;position: fixed;
  text-shadow: 0px 0px 4px #000000;
 }
 @keyframes tt{
