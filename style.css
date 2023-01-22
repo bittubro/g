@@ -3,9 +3,7 @@
   color: #84FF00;
   right: 0;top: 70vmax;
   font-size: 11vmax;position: fixed;
- text-shadow: 0px 0px 4px #000000;transition: all 1.3s ease;position: fixed;
- text-shadow: 0px 0px 4px #000000;
-}
+ text-shadow: 0px 0px 4px #000000;}
 @keyframes tt{
   10%{
     text-shadow: 9px 0px 2px #FFE100;
@@ -16,7 +14,8 @@
   position: fixed;
 }
 #checkTab:not(:checked) ~ .menu {
-  color: #FF0000;
+  color: #FF0000;transition: all 1.3s ease;
+
   font-size: 6vmax;transform: rotateZ(60deg)skewx(59deg);text-shadow: 0px 0px 4px #0037FF,2px 2px 1px #00FF43,-2px -2px 1px #03FF45;
 }
 #checkTab:checked ~ .menu {
